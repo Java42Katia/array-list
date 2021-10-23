@@ -30,23 +30,16 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
-		if (index > size || index < 0) {
-			ensureCapacity(size + 1);
+		if (index <= size && index >= 0) {
+			if (size + 1 > array.length) {
+				allocate();
+			}
 			System.arraycopy(array, index, array, index + 1, size - index);
 			array[index] = element;
 			size++;
 			return true;
 		} else 
 			return false;
-	}
-
-	private void ensureCapacity(int minCapacity) {
-		if (array == new Object[DEFAULT_CAPACITY]) {
-			minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
-		}
-		if (minCapacity - array.length > 0) {
-			allocate();
-		}
 	}
 	
 	@Override
