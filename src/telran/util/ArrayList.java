@@ -30,14 +30,28 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
-		// TODO Auto-generated method stub
-		return false;
+		if (index > size || index < 0) {
+			ensureCapacity(size + 1);
+			System.arraycopy(array, index, array, index + 1, size - index);
+			array[index] = element;
+			size++;
+			return true;
+		} else 
+			return false;
 	}
 
+	private void ensureCapacity(int minCapacity) {
+		if (array == new Object[DEFAULT_CAPACITY]) {
+			minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+		}
+		if (minCapacity - array.length > 0) {
+			allocate();
+		}
+	}
+	
 	@Override
 	public int size() {
-		
-		return size;
+		return this.size;
 	}
 
 	@Override
@@ -52,8 +66,12 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		T removedValue = isValidIndex(index) ? array[index] : null;
+		int numMoved = size - index - 1;
+		if (numMoved > 0)
+			System.arraycopy(array, index + 1, array, index, numMoved);
+		array[--size] = null;
+		return removedValue;
 	}
 
 }
