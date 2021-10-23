@@ -30,7 +30,9 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
+		//[YG] better to introduce boolean res = false ; update "if" statement so avoid two returns and if/else
 		if (index <= size && index >= 0) {
+			//[YG] better size == array.length
 			if (size + 1 > array.length) {
 				allocate();
 			}
@@ -60,7 +62,9 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public T remove(int index) {
 		T removedValue = isValidIndex(index) ? array[index] : null;
+		//[YG] major bug; due to very weak tests the bug is not discovered; do more tests
 		int numMoved = size - index - 1;
+		//[YG] unneded if
 		if (numMoved > 0)
 			System.arraycopy(array, index + 1, array, index, numMoved);
 		array[--size] = null;
