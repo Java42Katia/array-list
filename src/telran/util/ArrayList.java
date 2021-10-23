@@ -28,6 +28,7 @@ public class ArrayList<T> implements List<T> {
 		array = Arrays.copyOf(array, array.length * 2);
 		
 	}
+	// V.R. Looks OK
 	@Override
 	public boolean add(int index, T element) {
 		boolean res = false;
@@ -58,6 +59,7 @@ public class ArrayList<T> implements List<T> {
 		
 		return index >= 0 && index < size;
 	}
+	// V.R. Looks OK
 	@Override
 	public T remove(int index) {
 		T removedValue = null;
