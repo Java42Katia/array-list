@@ -30,6 +30,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
+		boolean res = false;
 		if (index <= size && index >= 0) {
 			if (size + 1 > array.length) {
 				allocate();
@@ -37,9 +38,9 @@ public class ArrayList<T> implements List<T> {
 			System.arraycopy(array, index, array, index + 1, size - index);
 			array[index] = element;
 			size++;
-			return true;
-		} else 
-			return false;
+			res = true;
+		}
+		return res;
 	}
 	
 	@Override
@@ -59,11 +60,13 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public T remove(int index) {
-		T removedValue = isValidIndex(index) ? array[index] : null;
-		int numMoved = size - index - 1;
-		if (numMoved > 0)
+		T removedValue = null;
+		if (isValidIndex(index)) {
+			removedValue = array[index];
+			int numMoved = size - index - 1;
 			System.arraycopy(array, index + 1, array, index, numMoved);
-		array[--size] = null;
+			array[--size] = null;
+		}
 		return removedValue;
 	}
 
