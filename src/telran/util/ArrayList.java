@@ -31,14 +31,18 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean add(int index, T element) {
 		boolean res = false;
-		if (index <= size && index >= 0) {
-			if (size + 1 > array.length) {
+		if (index == size) {
+			add(element);
+			res = true;
+			
+		} else if(isValidIndex(index)) {
+			res = true;
+			if (size == array.length) {
 				allocate();
 			}
 			System.arraycopy(array, index, array, index + 1, size - index);
 			array[index] = element;
 			size++;
-			res = true;
 		}
 		return res;
 	}
@@ -60,14 +64,14 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public T remove(int index) {
-		T removedValue = null;
+		T res = null;
 		if (isValidIndex(index)) {
-			removedValue = array[index];
-			int numMoved = size - index - 1;
-			System.arraycopy(array, index + 1, array, index, numMoved);
-			array[--size] = null;
+			res = array[index];
+			size--;
+			System.arraycopy(array, index + 1, array, index, size - index);
 		}
-		return removedValue;
+		
+		return res;
 	}
 
 }
