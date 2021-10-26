@@ -1,6 +1,7 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CAPACITY = 16;
@@ -31,14 +32,27 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean add(int index, T element) {
 		boolean res = false;
+<<<<<<< HEAD
 		if (index <= size && index >= 0) {
 			if (size + 1 > array.length) {
+=======
+		if (index == size) {
+			add(element);
+			res = true;
+			
+		} else if(isValidIndex(index)) {
+			res = true;
+			if (size == array.length) {
+>>>>>>> origin
 				allocate();
 			}
 			System.arraycopy(array, index, array, index + 1, size - index);
 			array[index] = element;
 			size++;
+<<<<<<< HEAD
 			res = true;
+=======
+>>>>>>> origin
 		}
 		return res;
 	}
@@ -60,14 +74,62 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public T remove(int index) {
-		T removedValue = null;
+		T res = null;
 		if (isValidIndex(index)) {
-			removedValue = array[index];
-			int numMoved = size - index - 1;
-			System.arraycopy(array, index + 1, array, index, numMoved);
-			array[--size] = null;
+			res = array[index];
+			size--;
+			System.arraycopy(array, index + 1, array, index, size - index);
+			//FIXME regarding setting null
 		}
-		return removedValue;
+		
+		return res;
+	}
+	@Override
+	public boolean contains(T pattern) {
+		boolean res = false;
+		for(int i = 0; i < size; i++) {
+			if (array[i].equals(pattern)) {
+				res = true;
+				break;
+			}
+		}
+		return res;
+	}
+	@Override
+	public int indexOf(T pattern) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int lastIndexOf(T pattern) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public boolean contains(Predicate<T> predicate) {
+		boolean res = false;
+		for(int i = 0; i < size; i++) {
+			if (predicate.test(array[i])) {
+				res = true;
+				break;
+			}
+		}
+		return res;
+	}
+	@Override
+	public int indexOf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int lastIndexOf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public boolean removeIf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
