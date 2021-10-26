@@ -32,10 +32,6 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean add(int index, T element) {
 		boolean res = false;
-<<<<<<< HEAD
-		if (index <= size && index >= 0) {
-			if (size + 1 > array.length) {
-=======
 		if (index == size) {
 			add(element);
 			res = true;
@@ -43,16 +39,11 @@ public class ArrayList<T> implements List<T> {
 		} else if(isValidIndex(index)) {
 			res = true;
 			if (size == array.length) {
->>>>>>> origin
 				allocate();
 			}
 			System.arraycopy(array, index, array, index + 1, size - index);
 			array[index] = element;
 			size++;
-<<<<<<< HEAD
-			res = true;
-=======
->>>>>>> origin
 		}
 		return res;
 	}
